@@ -35,6 +35,11 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+//giving req.user to every routes
+app.use((req, res, next) => {
+    res.locals.user = req.user
+    next()
+})
 
 const userRoute = require('./routes/user')
 app.use('/ecom', userRoute)
