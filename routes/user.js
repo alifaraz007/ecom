@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const User = require('../models/usermodel')
+const passport = require('passport')
+const passportConfig = require('../config/passport')
 
 router.post('/signup', async (req, res, next) => {
     try {
@@ -18,6 +20,16 @@ router.post('/signup', async (req, res, next) => {
     } catch (err) {
         console.log(err)
     }
+})
+
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/ecom/profile',
+    failureRedirect: '/ecom/login',
+    failureFlash: true
+}))
+
+router.get('/profile', (req, res) => {
+    res.json(req.user)
 })
 
 module.exports = router;
