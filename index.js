@@ -41,8 +41,14 @@ app.use((req, res, next) => {
     next()
 })
 
+const mainRoute = require('./routes/main')
 const userRoute = require('./routes/user')
-app.use('/ecom', userRoute)
+const adminRoute = require('./routes/admin')
+const apiRoute = require('./api/api')
+app.use(mainRoute)
+app.use('/user', userRoute)
+app.use('/admin', adminRoute)
+app.use('/api', apiRoute)
 
 const port = 3000;
 app.listen(port, (err) => {
